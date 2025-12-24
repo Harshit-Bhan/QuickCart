@@ -51,7 +51,7 @@ const OrderSummary = () => {
 
       const token = await getToken();
 
-      const { data } = await axios.post('/order/create',{
+      const { data } = await axios.post('/api/order/create',{
         address: selectedAddress,
         items: Object.keys(cartItems).map((key) => ({
           product: key,
