@@ -55,9 +55,10 @@ export const AppContextProvider = (props) => {
         if (data.success) {
             setUserData(data.user)
             setCartItems(data.user.cartItems)
-        } else {
-            toast.error(data.message)
         }
+        //  else {
+        //     toast.error(data.message)
+        // }
 
         } catch (error) {
             toast.error(error.message)

@@ -42,6 +42,32 @@ const OrderSummary = () => {
 
   const createOrder = async () => {
 
+    if (!selectedAddress) {
+      toast.error("Please select a shipping address");
+      return;
+    }
+
+    try {
+
+      const token = await getToken();
+
+      const { data } = await axios.post('/order/create',{
+        address: selectedAddress,
+        items: Object.keys(cartItems).map((key) => ({
+          product: key,
+          quantity: cartItems[key]
+        }))
+      },{headers:{Authorization: `Bearer ${token}`}});
+      if (data.success) {
+        toast.success(data.message);
+        setCartItems({});
+        router.push('/order-placed');
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
 
   useEffect(() => {
